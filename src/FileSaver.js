@@ -1,5 +1,7 @@
 /*
 * FileSaver.js
+*
+* A fork of FileSaver with Basic Authentication
 * A saveAs() FileSaver implementation.
 *
 * By Eli Grey, http://eligrey.com
@@ -40,6 +42,9 @@ function download (url, name, opts) {
   }
   xhr.onerror = function () {
     console.error('could not download file')
+  }
+  if(opts.username && opts.password){
+    xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
   }
   xhr.send()
 }
